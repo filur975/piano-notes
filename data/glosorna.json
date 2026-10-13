@@ -1,0 +1,1654 @@
+{
+  "lists": [
+    {
+      "id": "numbers",
+      "name": "Numbers",
+      "words": [
+        {
+          "sv": "noll",
+          "en": "zero",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "ett",
+          "en": "one",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "två",
+          "en": "two",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "tre",
+          "en": "three",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "fyra",
+          "en": "four",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "fem",
+          "en": "five",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "sex",
+          "en": "six",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "sju",
+          "en": "seven",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "åtta",
+          "en": "eight",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "nio",
+          "en": "nine",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "tio",
+          "en": "ten",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "elva",
+          "en": "eleven",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "tolv",
+          "en": "twelve",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "tretton",
+          "en": "thirteen",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "fjorton",
+          "en": "fourteen",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "femton",
+          "en": "fifteen",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "sexton",
+          "en": "sixteen",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "sjutton",
+          "en": "seventeen",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "arton",
+          "en": "eighteen",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "nitton",
+          "en": "nineteen",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "tjugo",
+          "en": "twenty",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "trettio",
+          "en": "thirty",
+          "correct": 1,
+          "wrong": 0
+        },
+        {
+          "sv": "fyrtio",
+          "en": "forty",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "femtio",
+          "en": "fifty",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "sextio",
+          "en": "sixty",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "sjuttio",
+          "en": "seventy",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "åttio",
+          "en": "eighty",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "nittio",
+          "en": "ninety",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "ett hundra",
+          "en": "one hundred",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "ett tusen",
+          "en": "one thousand",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "en miljon",
+          "en": "one million",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "en miljard",
+          "en": "one billion",
+          "correct": 0,
+          "wrong": 0
+        }
+      ]
+    },
+    {
+      "id": "professions",
+      "name": "Professions",
+      "words": [
+        {
+          "sv": "yrken",
+          "en": "professions",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "spelutvecklare",
+          "en": "game developer",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "frisör",
+          "en": "hairdresser",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "rörmokare",
+          "en": "plumber",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "brandsoldat",
+          "en": "firefighter",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "tandläkare",
+          "en": "dentist",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "läkare",
+          "en": "doctor",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "sjuksköterska",
+          "en": "nurse",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "taxichaufför",
+          "en": "taxi driver",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "veterinär",
+          "en": "vet",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "advokat",
+          "en": "lawyer",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "ingenjör",
+          "en": "engineer",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "byggnadsarbetare",
+          "en": "construction worker",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "konstnär",
+          "en": "artist",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "bagare",
+          "en": "baker",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "servitör",
+          "en": "waiter",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "kock",
+          "en": "cook",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "rektor",
+          "en": "head",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "lärare",
+          "en": "teacher",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "vaktmästare",
+          "en": "caretaker",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "polis",
+          "en": "police officer",
+          "correct": 0,
+          "wrong": 0
+        }
+      ]
+    },
+    {
+      "id": "family",
+      "name": "Family",
+      "words": [
+        {
+          "sv": "familj, släkt",
+          "en": "family",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "farmor, mormor",
+          "en": "grandmother",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "farfar, morfar",
+          "en": "grandfather",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "moster, faster",
+          "en": "aunt",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "morbror, farbror",
+          "en": "uncle",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "styvmor",
+          "en": "stepmother",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "pappa",
+          "en": "father",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "mamma",
+          "en": "mother",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "styvsyster",
+          "en": "stepsister",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "styvbror",
+          "en": "stepbrother",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "bror",
+          "en": "brother",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "jag",
+          "en": "me",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "syster",
+          "en": "sister",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "kusin",
+          "en": "cousin",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "hund",
+          "en": "dog",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "katt",
+          "en": "cat",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "orm",
+          "en": "snake",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "undulat",
+          "en": "budgie",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "hamster",
+          "en": "hamster",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "mus",
+          "en": "mouse",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "häst",
+          "en": "horse",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "papegoja",
+          "en": "parrot",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "råtta",
+          "en": "rat",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "sköldpadda",
+          "en": "turtle",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "kanin",
+          "en": "rabbit",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "marsvin",
+          "en": "guinea pig",
+          "correct": 0,
+          "wrong": 0
+        }
+      ]
+    },
+    {
+      "id": "breakfast-time",
+      "name": "Breakfast time!",
+      "words": [
+        {
+          "sv": "frukost",
+          "en": "breakfast",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "bröd",
+          "en": "bread",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "smör",
+          "en": "butter",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "skinka",
+          "en": "ham",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "ost",
+          "en": "cheese",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "jordgubbssylt",
+          "en": "strawberry jam",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "ägg",
+          "en": "egg",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "yoghurt",
+          "en": "yoghurt",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "mjölk",
+          "en": "milk",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "apelsinjuice",
+          "en": "orange juice",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "varm choklad",
+          "en": "hot chocolate",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "te",
+          "en": "tea",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "pannkakor",
+          "en": "pancakes",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "rostat bröd",
+          "en": "toast",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "gröt",
+          "en": "porridge",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "flingor",
+          "en": "cereal",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "tallrik",
+          "en": "plate",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "skål",
+          "en": "bowl",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "kniv",
+          "en": "knife",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "gaffel",
+          "en": "fork",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "sked",
+          "en": "spoon",
+          "correct": 0,
+          "wrong": 0
+        }
+      ]
+    },
+    {
+      "id": "prepositions",
+      "name": "Prepositions",
+      "words": [
+        {
+          "sv": "prepositioner",
+          "en": "prepositions",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "i",
+          "en": "in",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "på",
+          "en": "on",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "under",
+          "en": "under",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "bredvid",
+          "en": "beside",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "över",
+          "en": "over",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "bakom",
+          "en": "behind",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "framför",
+          "en": "in front of",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "runt",
+          "en": "around",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "mellan",
+          "en": "between",
+          "correct": 0,
+          "wrong": 0
+        }
+      ]
+    },
+    {
+      "id": "schedule",
+      "name": "Schedule",
+      "words": [
+        {
+          "sv": "bild",
+          "en": "art",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "kemi",
+          "en": "chemistry",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "slöjd",
+          "en": "crafts",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "biologi",
+          "en": "biology",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "franska",
+          "en": "French",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "engelska",
+          "en": "English",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "geografi",
+          "en": "geography",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "tyska",
+          "en": "German",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "historia",
+          "en": "history",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "hemkunskap",
+          "en": "home economics",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "matematik",
+          "en": "maths",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "musik",
+          "en": "music",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "idrott och hälsa",
+          "en": "P.E. (physical education)",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "fysik",
+          "en": "physics",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "religion",
+          "en": "religion",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "samhällskunskap",
+          "en": "social studies",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "spanska",
+          "en": "Spanish",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "svenska",
+          "en": "Swedish",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "teknik",
+          "en": "technology",
+          "correct": 0,
+          "wrong": 0
+        }
+      ]
+    },
+    {
+      "id": "hobbies",
+      "name": "Hobbies",
+      "words": [
+        {
+          "sv": "hobbyer",
+          "en": "hobbies",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "lyssna på musik",
+          "en": "listen to music",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "spela gitarr",
+          "en": "play the guitar",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "rita",
+          "en": "draw",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "spela tv-spel",
+          "en": "play video games",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "spela fotboll",
+          "en": "play football",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "åka skidor",
+          "en": "go skiing",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "rida",
+          "en": "go horse riding",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "läsa böcker",
+          "en": "read books",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "spela handboll",
+          "en": "play handball",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "spela innebandy",
+          "en": "play floor ball",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "simma",
+          "en": "go swimming",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "sjunga",
+          "en": "sing",
+          "correct": 0,
+          "wrong": 0
+        }
+      ]
+    },
+    {
+      "id": "seasons-and-months",
+      "name": "Seasons and months",
+      "words": [
+        {
+          "sv": "årstider",
+          "en": "seasons",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "månader",
+          "en": "months",
+          "correct": 0,
+          "wrong": 1
+        },
+        {
+          "sv": "januari",
+          "en": "January",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "februari",
+          "en": "February",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "mars",
+          "en": "March",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "april",
+          "en": "April",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "maj",
+          "en": "May",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "juni",
+          "en": "June",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "juli",
+          "en": "July",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "augusti",
+          "en": "August",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "september",
+          "en": "September",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "oktober",
+          "en": "October",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "november",
+          "en": "November",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "december",
+          "en": "December",
+          "correct": 1,
+          "wrong": 0
+        },
+        {
+          "sv": "vinter",
+          "en": "winter",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "vår",
+          "en": "spring",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "sommar",
+          "en": "summer",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "höst",
+          "en": "autumn",
+          "correct": 0,
+          "wrong": 0
+        }
+      ]
+    },
+    {
+      "id": "weather",
+      "name": "Weather",
+      "words": [
+        {
+          "sv": "väder",
+          "en": "weather",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "solig",
+          "en": "sunny",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "het, varm",
+          "en": "hot",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "kall",
+          "en": "cold",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "blåsig",
+          "en": "windy",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "regnar",
+          "en": "raining",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "molnig",
+          "en": "cloudy",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "snöar",
+          "en": "snowing",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "hagel",
+          "en": "hail",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "åska och blixtar",
+          "en": "thunder and lightning",
+          "correct": 0,
+          "wrong": 0
+        }
+      ]
+    },
+    {
+      "id": "clothes",
+      "name": "Clothes",
+      "words": [
+        {
+          "sv": "kläder",
+          "en": "clothes",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "tröja",
+          "en": "sweater",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "huvtröja",
+          "en": "hoodie",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "T-shirt",
+          "en": "t-shirt",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "långbyxor",
+          "en": "trousers",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "leggings",
+          "en": "leggings",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "kjol",
+          "en": "skirt",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "klänning",
+          "en": "dress",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "skjorta",
+          "en": "shirt",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "jacka",
+          "en": "jacket",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "mössa, hatt",
+          "en": "hat",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "handskar",
+          "en": "gloves",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "vantar",
+          "en": "mittens",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "pyjamas",
+          "en": "pyjamas",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "shorts",
+          "en": "shorts",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "baddräkt",
+          "en": "bathing suit",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "badbyxor",
+          "en": "swimming trunks",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "strumpor",
+          "en": "socks",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "underkläder",
+          "en": "underwear",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "gymnastikskor",
+          "en": "sneakers",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "skor",
+          "en": "shoes",
+          "correct": 0,
+          "wrong": 0
+        }
+      ]
+    },
+    {
+      "id": "the-body",
+      "name": "The body",
+      "words": [
+        {
+          "sv": "kroppen",
+          "en": "the body",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "ansikte",
+          "en": "face",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "huvud",
+          "en": "head",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "nacke",
+          "en": "neck",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "bröst",
+          "en": "chest",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "mage",
+          "en": "stomach",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "höft",
+          "en": "hip",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "ben",
+          "en": "leg",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "knä",
+          "en": "knee",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "tå",
+          "en": "toe",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "vrist",
+          "en": "ankle",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "fot",
+          "en": "foot",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "häl",
+          "en": "heel",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "tumme",
+          "en": "thumb",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "finger",
+          "en": "finger",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "hand",
+          "en": "hand",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "handled",
+          "en": "wrist",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "axel",
+          "en": "shoulder",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "armbåge",
+          "en": "elbow",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "arm",
+          "en": "arm",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "rygg",
+          "en": "back",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "rumpa",
+          "en": "bottom",
+          "correct": 0,
+          "wrong": 0
+        }
+      ]
+    },
+    {
+      "id": "the-face",
+      "name": "The face",
+      "words": [
+        {
+          "sv": "ansiktet",
+          "en": "the face",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "panna",
+          "en": "forehead",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "ögonbryn",
+          "en": "eyebrow",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "ögonfransar",
+          "en": "eyelashes",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "öga",
+          "en": "eye",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "näsa",
+          "en": "nose",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "läpp",
+          "en": "lip",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "tunga",
+          "en": "tongue",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "haka",
+          "en": "chin",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "hår",
+          "en": "hair",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "öra",
+          "en": "ear",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "kind",
+          "en": "cheek",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "mun",
+          "en": "mouth",
+          "correct": 0,
+          "wrong": 0
+        }
+      ]
+    },
+    {
+      "id": "24-hours",
+      "name": "24 hours",
+      "words": [
+        {
+          "sv": "morgon",
+          "en": "morning",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "middag, mitt på dagen",
+          "en": "noon",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "eftermiddag",
+          "en": "afternoon",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "kväll",
+          "en": "evening",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "natt",
+          "en": "night",
+          "correct": 0,
+          "wrong": 0
+        }
+      ]
+    },
+    {
+      "id": "feelings",
+      "name": "Feelings",
+      "words": [
+        {
+          "sv": "känslor",
+          "en": "feelings",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "upphetsad, uppspelt",
+          "en": "excited",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "ledsen",
+          "en": "sad",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "glad",
+          "en": "happy",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "arg",
+          "en": "angry",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "lugn",
+          "en": "calm",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "trött",
+          "en": "tired",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "överraskad",
+          "en": "surprised",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "oroad",
+          "en": "worried",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "nervös",
+          "en": "nervous",
+          "correct": 0,
+          "wrong": 0
+        }
+      ]
+    },
+    {
+      "id": "the-town-and-the-countryside",
+      "name": "The town and the countryside",
+      "words": [
+        {
+          "sv": "stad",
+          "en": "town",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "land, landsbygd",
+          "en": "countryside",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "hav",
+          "en": "sea",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "berg",
+          "en": "mountain",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "kulle",
+          "en": "hill",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "väg",
+          "en": "road",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "flod",
+          "en": "river",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "bro",
+          "en": "bridge",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "kyrka",
+          "en": "church",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "sjukhus",
+          "en": "hospital",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "sporthall",
+          "en": "sports centre",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "tågstation",
+          "en": "train station",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "trafikljus",
+          "en": "traffic lights",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "skola",
+          "en": "school",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "gata",
+          "en": "street",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "övergångsställe",
+          "en": "zebra crossing",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "kafé",
+          "en": "café",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "snabbköp",
+          "en": "supermarket",
+          "correct": 0,
+          "wrong": 0
+        },
+        {
+          "sv": "teater",
+          "en": "theatre",
+          "correct": 0,
+          "wrong": 0
+        }
+      ]
+    }
+  ]
+}

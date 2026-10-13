@@ -1,0 +1,7 @@
+.venv/
+__pycache__/
+data/lists.json*
+data/*.tmp
+build/
+dist/
+*.spec
