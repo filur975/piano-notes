@@ -5,8 +5,6 @@ A piano key is a MIDI number: middle C is 60.
 """
 import random
 
-import quiz
-
 LETTERS = "CDEFGAB"
 SEMITONES = [0, 2, 4, 5, 7, 9, 11]
 SHARP_ORDER = "FCGDAEB"
@@ -20,7 +18,12 @@ CLEF_NAMES = {"treble": "diskantklav", "bass": "basklav"}
 # Where the sharps and flats of a key signature sit on the treble staff; the bass staff is two octaves lower.
 SIGNATURE_STEPS = {1: [38, 35, 39, 36, 33, 37, 34], -1: [34, 37, 33, 36, 32, 35, 31]}
 
-KEYS = list(range(-7, 8))  # number of sharps (positive) or flats (negative)
+KEYS = list(range(-7, 8))
+
+CORRECT_MSGS = ["Bra jobbat! 🎉", "Rätt! Fortsätt så! 🌟", "Precis så! 👏", "Snyggt! 🚀", "Superbra! 😀"]
+WRONG_MSGS = ["Nästan! Det är bra att du försöker 💪", "Inte riktigt, men du lär dig! 🌱",
+              "Ingen fara, du klarar den nästa gång! 😊"]
+REVEAL_MSGS = ["Här är svaret – du får se det igen strax 👀", "Bra att du kollar! Vi tar det igen senare 🙂"]  # number of sharps (positive) or flats (negative)
 
 
 def step_of(letter, octave):
@@ -115,13 +118,62 @@ def is_white(midi):
     return midi % 12 in SEMITONES
 
 
-class Session(quiz.Session):
-    """A practice round of notes. direction is "staff-key" (see a note, click the key) or
-    "key-staff" (see a key, click the staff). The given answer is a MIDI number."""
+class Item:
+    def __init__(self, note):
+        self.note = note
+        self.first_try = None  # None until the first answer, then True/False
 
-    def __init__(self, notes, direction, fifths, rng=random):
-        super().__init__(notes, direction, rng)
-        self.fifths = fifths
 
-    def matches(self, given, note):
-        return given == note["midi"]
+class Session:
+    """One practice round. direction is "staff-key" (see a note, click the key) or "key-staff"
+    (see a key, click the staff). A missed note comes back a few notes later."""
+
+    def __init__(self, notes_, direction, fifths, rng=random):
+        self.direction, self.fifths = direction, fifths
+        self.queue = [Item(n) for n in notes_]
+        rng.shuffle(self.queue)
+        self.all = self.queue[:]
+        self.total = len(notes_)
+        self.mastered = 0
+
+    @property
+    def current(self):
+        return self.queue[0] if self.queue else None
+
+    def _first_attempt(self, item, ok):
+        """True if this was the first attempt (so it counts in the score)."""
+        if item.first_try is not None:
+            return False
+        item.first_try = ok
+        return True
+
+    def _requeue(self, item):
+        self.queue.pop(0)
+        self.queue.insert(min(len(self.queue), 3), item)
+
+    def check(self, midi):
+        """Answers the current note with a piano key. Returns (correct, first_attempt)."""
+        item = self.current
+        ok = midi == item.note["midi"]
+        first = self._first_attempt(item, ok)
+        if ok:
+            self.queue.pop(0)
+            self.mastered += 1
+        else:
+            self._requeue(item)
+        return ok, first
+
+    def reveal(self):
+        """Gives up on the current note. Returns first_attempt."""
+        item = self.current
+        first = self._first_attempt(item, False)
+        self._requeue(item)
+        return first
+
+    @property
+    def hits(self):
+        return sum(1 for i in self.all if i.first_try)
+
+    @property
+    def missed(self):
+        return [i.note for i in self.all if not i.first_try]

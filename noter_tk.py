@@ -1,14 +1,285 @@
-"""Noter: practise reading notes and finding them on the piano, as a desktop app (Tkinter).
-
-Shares the look, widgets and window code with Glosor.
-"""
+"""Noter: practise reading notes and finding them on the piano, as a desktop app (Tkinter)."""
+import math
 import random
+import sys
 import tkinter as tk
+from tkinter import font as tkfont
 from tkinter import ttk
 
 import notes
-import quiz
-from glosor_tk import CanvasList, Feedback, GlosorApp, ProgressBar, Screen, elide, mix, plain
+
+# Apple-style palette: grouped background, solid cards, one accent.
+LIGHT = dict(bg="#f2f2f7", card="#ffffff", fill="#f2f2f7", ink="#1c1c1e", muted="#6e6e73", line="#e5e5ea",
+             accent="#5856d6", accent_fill="#5856d6", on_accent="#ffffff",
+             ok="#248a3d", ok_bg="#e3f6e8", bad="#c93400", bad_bg="#fff0e5")
+DARK = dict(bg="#000000", card="#1c1c1e", fill="#2c2c2e", ink="#f5f5f7", muted="#98989d", line="#38383a",
+            accent="#a5a3ff", accent_fill="#5e5ce6", on_accent="#ffffff",
+            ok="#30d158", ok_bg="#0f2e1a", bad="#ff9f0a", bad_bg="#33240a")
+
+
+
+# ---------- Platform ----------
+def enable_dpi_awareness():
+    """Sharp text on scaled Windows displays (otherwise Windows blurs the whole window)."""
+    if sys.platform == "win32":
+        try:
+            import ctypes
+            ctypes.windll.shcore.SetProcessDpiAwareness(1)
+        except (AttributeError, OSError):
+            pass
+
+
+def system_dark():
+    if sys.platform != "win32":
+        return False
+    try:
+        import winreg
+        path = r"Software\Microsoft\Windows\CurrentVersion\Themes\Personalize"
+        with winreg.OpenKey(winreg.HKEY_CURRENT_USER, path) as key:
+            return winreg.QueryValueEx(key, "AppsUseLightTheme")[0] == 0
+    except OSError:
+        return False
+
+
+def reduced_motion():
+    """True when Windows "Animation effects" is turned off."""
+    if sys.platform != "win32":
+        return False
+    try:
+        import ctypes
+        enabled = ctypes.c_bool(True)
+        ctypes.windll.user32.SystemParametersInfoW(0x1042, 0, ctypes.byref(enabled), 0)  # SPI_GETCLIENTAREAANIMATION
+        return not enabled.value
+    except (AttributeError, OSError):
+        return False
+
+
+# ---------- Drawing helpers ----------
+def mix(a, b, t):
+    """Blend two #rrggbb colors; t=0 gives a, t=1 gives b."""
+    a = [int(a[i:i + 2], 16) for i in (1, 3, 5)]
+    b = [int(b[i:i + 2], 16) for i in (1, 3, 5)]
+    return "#%02x%02x%02x" % tuple(round(x + (y - x) * t) for x, y in zip(a, b))
+
+
+def palette(dark):
+    c = dict(DARK if dark else LIGHT)
+    c["tint"] = mix(c["card"], c["accent_fill"], 0.22 if dark else 0.12)
+    c["row_sel"] = mix(c["fill"], c["accent_fill"], 0.22 if dark else 0.14)
+    return c
+
+
+def rounded_image(master, r, fill, bg, border=None, bw=1, width=None, height=None):
+    """An anti-aliased rounded rectangle. Flat areas are filled in one go; only the corners are
+    computed pixel by pixel."""
+    w, h = width or 2 * r + 2, height or 2 * r + 2
+    bw = round(bw)
+    img = tk.PhotoImage(master=master, width=w, height=h)
+    img.put(border or fill, to=(0, 0, w, h))
+    if border:
+        img.put(fill, to=(bw, bw, w - bw, h - bw))
+
+    def distance(x, y, inset):
+        radius = max(r - inset, 0)
+        qx = abs(x - w / 2) - (w / 2 - inset - radius)
+        qy = abs(y - h / 2) - (h / 2 - inset - radius)
+        return math.hypot(max(qx, 0), max(qy, 0)) + min(max(qx, qy), 0) - radius
+
+    k = r + 1  # corner squares
+    for x0 in (0, w - k):
+        for y in list(range(k)) + list(range(h - k, h)):
+            row = []
+            for x in range(x0, x0 + k):
+                outer = min(max(0.5 - distance(x + 0.5, y + 0.5, 0), 0), 1)
+                if border:
+                    inner = min(max(0.5 - distance(x + 0.5, y + 0.5, bw), 0), 1)
+                    row.append(mix(mix(bg, border, outer), fill, inner))
+                else:
+                    row.append(mix(bg, fill, outer))
+            img.put("{" + " ".join(row) + "}", to=(x0, y))
+    return img
+
+
+class Rounder:
+    """Anti-aliased rounded rectangles on a canvas: four corner images plus plain rectangles."""
+
+    def __init__(self, master):
+        self.master, self.cache = master, {}
+
+    def corners(self, r, fill, bg, border, bw):
+        key = (r, fill, bg, border, bw)
+        if key not in self.cache:
+            full = rounded_image(self.master, r, fill, bg, border, bw)
+            h = r + 1
+            parts = []
+            for x, y in ((0, 0), (h, 0), (0, h), (h, h)):
+                part = tk.PhotoImage(master=self.master, width=h, height=h)
+                part.tk.call(part, "copy", full, "-from", x, y, x + h, y + h, "-to", 0, 0)
+                parts.append(part)
+            self.cache[key] = parts
+        return self.cache[key]
+
+    def draw(self, canvas, x1, y1, x2, y2, r, fill, bg, border=None, bw=1, tags=()):
+        x1, y1, x2, y2 = round(x1), round(y1), round(x2), round(y2)
+        r = int(min(r, (x2 - x1) // 2 - 1, (y2 - y1) // 2 - 1))
+        h = r + 1
+        tl, tr, bl, br = self.corners(r, fill, bg, border, bw)
+        for img, x, y, anchor in ((tl, x1, y1, "nw"), (tr, x2, y1, "ne"), (bl, x1, y2, "sw"), (br, x2, y2, "se")):
+            canvas.create_image(x, y, image=img, anchor=anchor, tags=tags)
+        canvas.create_rectangle(x1 + h, y1, x2 - h, y2, fill=fill, width=0, tags=tags)
+        canvas.create_rectangle(x1, y1 + h, x2, y2 - h, fill=fill, width=0, tags=tags)
+        if border:
+            for box in ((x1 + h, y1, x2 - h, y1 + bw), (x1 + h, y2 - bw, x2 - h, y2),
+                        (x1, y1 + h, x1 + bw, y2 - h), (x2 - bw, y1 + h, x2, y2 - h)):
+                canvas.create_rectangle(*box, fill=border, width=0, tags=tags)
+
+
+def plain(text):
+    """Tk can't draw emoji reliably, so leave them out."""
+    return "".join(ch for ch in text if ord(ch) <= 0xFFFF and ch != "️").strip()
+
+
+def elide(text, font, width):
+    if font.measure(text) <= width:
+        return text
+    while text and font.measure(text + "…") > width:
+        text = text[:-1]
+    return text + "…"
+
+
+def wheel_step(event):
+    return -1 if event.num == 4 or event.delta > 0 else 1
+
+
+# ---------- Widgets ----------
+class CanvasList(tk.Canvas):
+    """Rows drawn on a canvas: as tall as the content up to a maximum, then it scrolls."""
+
+    def __init__(self, master, app, row_h, gap):
+        super().__init__(master, highlightthickness=0, background=app.c["card"], height=row_h,
+                         width=1, yscrollincrement=app.px(16))
+        self.app, self.row_h, self.gap = app, row_h, gap
+        self.rows, self.max_h = [], None
+        self.bind("<Configure>", lambda e: self.draw())
+
+    def content_height(self):
+        n = len(self.rows)
+        return n * self.row_h + (n - 1) * self.gap if n else self.row_h
+
+    def set_rows(self, rows):
+        self.rows = rows
+        self.yview_moveto(0)
+        self.fit()
+        self.draw()
+
+    def set_max(self, h):
+        self.max_h = max(self.row_h * 2, h)
+        self.fit()
+
+    def fit(self):
+        content = self.content_height()
+        h = min(content, self.max_h) if self.max_h else content
+        if int(self["height"]) != h:
+            self.configure(height=h)
+        self.configure(scrollregion=(0, 0, 1, content))
+
+    def wheel(self, event):
+        if self.content_height() > self.winfo_height():
+            self.yview_scroll(3 * wheel_step(event), "units")
+
+    def draw(self):
+        pass
+
+
+
+class ProgressBar(tk.Canvas):
+    def __init__(self, master, app):
+        super().__init__(master, height=app.px(6), width=1, highlightthickness=0, background=app.c["card"])
+        self.app, self.value, self.target, self.job = app, 0.0, 0.0, None
+        self.bind("<Configure>", lambda e: self.draw())
+
+    def set(self, target, animate=True):
+        self.target = target
+        if not animate or self.app.reduced:
+            self.value = target
+            self.draw()
+        elif self.job is None:
+            self.tick()
+
+    def tick(self):
+        # Ease toward the target from the current on-screen value; never overshoots.
+        self.value += (self.target - self.value) * 0.16
+        if abs(self.target - self.value) < 0.002:
+            self.value, self.job = self.target, None
+        else:
+            self.job = self.after(16, self.tick)
+        self.draw()
+
+    def draw(self):
+        self.delete("all")
+        w, h = self.winfo_width(), int(self["height"])
+        r = h / 2
+        self.create_line(r, r, w - r, r, width=h, capstyle="round", fill=self.app.c["fill"])
+        if self.value > 0.001:
+            self.create_line(r, r, r + (w - h) * self.value, r, width=h, capstyle="round", fill=self.app.c["ok"])
+
+
+class Feedback(tk.Canvas):
+    """The answer feedback: a rounded, tinted box with a message and the right answer."""
+
+    def __init__(self, master, app):
+        super().__init__(master, height=app.px(86), width=1, highlightthickness=0, background=app.c["card"])
+        self.app, self.content = app, (None, "", "")
+        self.bind("<Configure>", lambda e: self.draw())
+
+    def show(self, kind=None, message="", answer=""):
+        self.content = (kind, message, answer)
+        self.draw()
+
+    def draw(self):
+        self.delete("all")
+        kind, message, answer = self.content
+        if not kind:
+            return
+        c, px, fonts = self.app.c, self.app.px, self.app.fonts
+        w, h = self.winfo_width(), self.winfo_height()
+        self.app.rounder.draw(self, 0, 0, w, h, px(14), c[kind + "_bg"], c["card"])
+        self.create_text(w / 2, 0, text=message, anchor="n", justify="center", width=w - px(28),
+                         fill=c[kind], font=fonts["body_semibold"] if answer else fonts["big_bold"], tags="text")
+        if answer:
+            top = self.bbox("text")[3] + px(2)
+            self.create_text(w / 2, top, text=answer, anchor="n", justify="center", width=w - px(28),
+                             fill=c[kind], font=fonts["big_bold"], tags="text")
+        x1, y1, x2, y2 = self.bbox("text")
+        self.move("text", 0, h / 2 - (y1 + y2) / 2)
+
+
+class Screen(ttk.Frame):
+    depth = 0
+    scroller = None  # a widget with set_max()/wheel(), capped so the card fits the window
+
+    def __init__(self, app):
+        super().__init__(app.card)
+        self.app = app
+
+    def heading(self, title, sub=None, center=False):
+        anchor = "center" if center else "w"
+        label = ttk.Label(self, text=title, style="H2.TLabel", anchor=anchor)
+        label.pack(fill="x")
+        if sub:
+            ttk.Label(self, text=sub, style="Muted.TLabel", anchor=anchor).pack(
+                fill="x", pady=(self.app.px(2), self.app.px(18)))
+        return label
+
+    def button_row(self, pady_top=18):
+        row = ttk.Frame(self)
+        row.pack(fill="x", pady=(self.app.px(pady_top), 0))
+        return row
+
+    def on_show(self, *args):
+        pass
+
+
 
 WHITE_KEY, BLACK_KEY = "#ffffff", "#1c1c1e"
 
@@ -381,7 +652,7 @@ class QuizScreen(Screen):
             self.app.show("summary", s, self.settings)
             return
         self.answered = False
-        note = s.current.word
+        note = s.current.note
         if self.to_key:
             self.prompt.configure(text="Vilken tangent är det här? Klicka på pianot.")
             self.staff.set_notes([(note["clef"], note["step"], None)])
@@ -405,7 +676,7 @@ class QuizScreen(Screen):
     def key_clicked(self, midi):
         if self.answered or not self.to_key:
             return
-        note = self.session.current.word
+        note = self.session.current.note
         ok, _ = self.session.check(midi)
         marks, labels = {note["midi"]: "ok"}, {note["midi"]: note["name"]}
         if not ok:
@@ -417,7 +688,7 @@ class QuizScreen(Screen):
     def staff_clicked(self, clef, step):
         if self.answered or self.to_key:
             return
-        note = self.session.current.word
+        note = self.session.current.note
         clicked = notes.note_at(step, self.session.fifths)
         ok, _ = self.session.check(clicked["midi"])
         shown = [(clef, step, "ok")] if ok else [(note["clef"], note["step"], "ok"), (clef, step, "bad")]
@@ -432,19 +703,19 @@ class QuizScreen(Screen):
     def reveal(self):
         if self.answered:
             return
-        note = self.session.current.word
+        note = self.session.current.note
         self.session.reveal()
         self.staff.set_notes([(note["clef"], note["step"], "ok")])
         self.piano.set_marks({note["midi"]: "ok"}, {note["midi"]: note["name"]})
         self.answered = True
-        self.show_result("bad", plain(random.choice(quiz.REVEAL_MSGS)), f"Det är {note['name']}")
+        self.show_result("bad", plain(random.choice(notes.REVEAL_MSGS)), f"Det är {note['name']}")
 
     def after_answer(self, ok, answer):
         self.answered = True
         if ok:
-            self.show_result("ok", plain(random.choice(quiz.CORRECT_MSGS)), answer if self.to_key else "")
+            self.show_result("ok", plain(random.choice(notes.CORRECT_MSGS)), answer if self.to_key else "")
         else:
-            self.show_result("bad", plain(random.choice(quiz.WRONG_MSGS)), answer)
+            self.show_result("bad", plain(random.choice(notes.WRONG_MSGS)), answer)
 
     def show_result(self, kind, message, answer):
         self.feedback.show(kind, message, answer)
@@ -508,8 +779,8 @@ class SummaryScreen(Screen):
         self.settings = settings
         self.score.configure(text=f"{s.hits} av {s.total}")
         rows = []
-        for item in sorted(s.all, key=lambda i: (i.word["midi"], i.word["clef"])):
-            n = item.word
+        for item in sorted(s.all, key=lambda i: (i.note["midi"], i.note["clef"])):
+            n = item.note
             name = n["name"] + (" (mitt-C)" if n["step"] == notes.MIDDLE_C else "")
             rows.append((bool(item.first_try), name, notes.CLEF_NAMES[n["clef"]]))
         self.results.set_rows(rows)
@@ -523,11 +794,188 @@ class SummaryScreen(Screen):
             self.btn_again.focus_set()
 
 
-class NoterApp(GlosorApp):
-    app_name, size, min_size, card_width = "Noter", (820, 760), (600, 640), 760
+# ---------- App ----------
+class NoterApp(tk.Tk):
+    def __init__(self):
+        enable_dpi_awareness()
+        super().__init__()
+        self.dark, self.reduced = system_dark(), reduced_motion()
+        self.c = c = palette(self.dark)
+        self.scale = self.winfo_fpixels("1i") / 96
+        self.title("Noter")
+        self.geometry(f"{self.px(820)}x{self.px(760)}")
+        self.minsize(self.px(600), self.px(640))
+        self.configure(background=c["bg"])
+        self.rounder = Rounder(self)
+        self.setup_fonts()
+        self.setup_style()
 
-    def make_screens(self):
-        return {"home": HomeScreen(self), "quiz": QuizScreen(self), "summary": SummaryScreen(self)}
+        # The card is a rounded rectangle drawn on a canvas, with the current screen on top of it.
+        self.holder = tk.Canvas(self, background=c["bg"], highlightthickness=0)
+        self.holder.pack(fill="both", expand=True)
+        self.card = ttk.Frame(self.holder)
+        self.card_win = self.holder.create_window(0, 0, window=self.card, anchor="nw")
+        self.holder.bind("<Configure>", self.layout)
+        self.card.bind("<Configure>", self.layout)
+        for seq in ("<MouseWheel>", "<Button-4>", "<Button-5>"):
+            self.bind_all(seq, self.on_wheel)
+        self.slide_dx, self.slide_job = 0.0, None
+
+        self.screens = {"home": HomeScreen(self), "quiz": QuizScreen(self), "summary": SummaryScreen(self)}
+        self.current = None
+        self.show("home")
+        self.dark_title_bar()
+
+    def px(self, n):
+        return round(n * self.scale)
+
+    def setup_fonts(self):
+        families = set(tkfont.families(self))
+
+        def first(*names):
+            return next((n for n in names if n in families), tkfont.nametofont("TkDefaultFont").actual("family"))
+
+        # Prefer the platform's own UI font (Segoe UI Variable on Windows 11 has optical sizes).
+        text = first("Segoe UI Variable Text", "Segoe UI", "SF Pro Text", "Helvetica Neue", "Cantarell", "DejaVu Sans")
+        display = first("Segoe UI Variable Display", "Segoe UI", "SF Pro Display", "Helvetica Neue", "Cantarell",
+                        "DejaVu Sans")
+        semibold = (first("Segoe UI Semibold"), "normal") if "Segoe UI Semibold" in families else (text, "bold")
+
+        def make(family, size, weight="normal"):
+            return tkfont.Font(self, family=family, size=size, weight=weight)
+
+        self.fonts = {
+            "small": make(text, 10),
+            "body": make(text, 11),
+            "body_semibold": make(semibold[0], 11, semibold[1]),
+            "caption": make(semibold[0], 9, semibold[1]),
+            "button": make(semibold[0], 11, semibold[1]),
+            "big_bold": make(display, 14, "bold"),
+            "h2": make(display, 20, "bold"),
+            "score": make(display, 40, "bold"),
+        }
+        tkfont.nametofont("TkDefaultFont").configure(family=text, size=11)
+        tkfont.nametofont("TkTextFont").configure(family=text, size=11)
+
+    def setup_style(self):
+        c, px = self.c, self.px
+        st = ttk.Style(self)
+        st.theme_use("clam")
+        st.configure(".", background=c["card"], foreground=c["ink"], font=self.fonts["body"],
+                     borderwidth=0, focuscolor=c["accent_fill"], troughcolor=c["fill"])
+        st.configure("TFrame", background=c["card"])
+        st.configure("TLabel", background=c["card"], foreground=c["ink"])
+        st.configure("H2.TLabel", font=self.fonts["h2"])
+        st.configure("Muted.TLabel", foreground=c["muted"])
+        st.configure("Small.TLabel", foreground=c["muted"], font=self.fonts["small"])
+        st.configure("Caption.TLabel", foreground=c["muted"], font=self.fonts["caption"])
+        st.configure("Score.TLabel", font=self.fonts["score"])
+
+        # Rounded buttons, drawn from small anti-aliased images (one per state).
+        self.images = []
+
+        def image(r, fill, border=None, bw=1):
+            # ttk tiles the middle of the image; a 256x96 middle keeps that to a few copies per widget,
+            # which matters on Windows where every copy is a slow drawing call. (The elements get a small
+            # minimum size, so the image size doesn't make widgets bigger.)
+            img = rounded_image(self, r, fill, card, border, bw, width=2 * r + 256, height=2 * r + 96)
+            self.images.append(img)  # Tk images vanish when Python drops the last reference
+            return img
+
+        def button(name, bg, fg, press, hover, disabled_bg, disabled_fg, padding=(18, 10), font="button",
+                   ring=None, radius=10):
+            r = px(radius)
+            focus = image(r, bg, ring or c["accent_fill"], max(2, px(2)))  # keyboard focus: a ring, not dots
+            st.element_create(f"{name}.bg", "image", image(r, bg), ("disabled", image(r, disabled_bg)),
+                              ("pressed", image(r, press)), ("active", image(r, hover)), ("focus", focus),
+                              border=r, sticky="nsew", width=2 * r, height=2 * r)
+            st.layout(name, [(f"{name}.bg", {"sticky": "nsew", "children": [
+                ("Button.padding", {"sticky": "nsew", "children": [("Button.label", {"sticky": "nsew"})]})]})])
+            st.configure(name, background=bg, foreground=fg, font=self.fonts[font], anchor="center",
+                         padding=(px(padding[0]), px(padding[1])))
+            st.map(name, foreground=[("disabled", disabled_fg)])
+
+        a, t, card = c["accent_fill"], c["tint"], c["card"]
+        button("Accent.TButton", a, c["on_accent"], mix(a, "#000000", 0.18), mix(a, "#ffffff", 0.1),
+               mix(a, card, 0.6), mix(c["on_accent"], card, 0.3), ring=mix(a, "#ffffff", 0.55))
+        button("Tinted.TButton", t, c["accent"], mix(t, a, 0.16), mix(t, a, 0.07), c["fill"], c["muted"])
+        button("Link.TButton", card, c["muted"], card, card, card, c["muted"], padding=(0, 2), font="small")
+        st.configure("Link.TButton", width=-1)
+        st.map("Link.TButton", foreground=[("pressed", c["ink"]), ("active", c["ink"])])
+        button("Icon.TButton", c["fill"], c["muted"], mix(c["fill"], c["ink"], 0.12), mix(c["fill"], c["ink"], 0.05),
+               c["fill"], c["muted"], padding=(8, 6), font="small", radius=8)
+
+    def dark_title_bar(self):
+        if sys.platform != "win32" or not self.dark:
+            return
+        try:
+            import ctypes
+            self.update_idletasks()
+            hwnd = ctypes.windll.user32.GetParent(self.winfo_id())
+            on = ctypes.c_int(1)
+            ctypes.windll.dwmapi.DwmSetWindowAttribute(hwnd, 20, ctypes.byref(on), ctypes.sizeof(on))
+        except (AttributeError, OSError):
+            pass
+
+    def layout(self, event=None):
+        W, H = self.holder.winfo_width(), self.holder.winfo_height()
+        if W < 2:
+            return
+        px = self.px
+        margin, pad = px(24), px(28)
+        w = min(W - 2 * margin, px(760))
+        screen = self.current
+        if screen is not None and screen.scroller is not None:
+            other = self.card.winfo_reqheight() - screen.scroller.winfo_reqheight()
+            screen.scroller.set_max(H - 2 * margin - 2 * pad - other)
+        x = (W - w) / 2 + self.slide_dx
+        self.holder.coords(self.card_win, x + pad, margin + pad)
+        self.holder.itemconfigure(self.card_win, width=max(1, w - 2 * pad))
+        h = self.card.winfo_reqheight() + 2 * pad
+        self.holder.delete("card")
+        self.rounder.draw(self.holder, x, margin, x + w, margin + h, px(22), self.c["card"], self.c["bg"],
+                          None if self.dark else self.c["line"], tags="card")
+        self.holder.tag_lower("card")
+
+    def show(self, name, *args, direction=None):
+        screen = self.screens[name]
+        if direction is None and self.current is not None:
+            direction = "fwd" if screen.depth >= self.current.depth else "back"
+        if self.current is not None:
+            self.current.pack_forget()
+        self.current = screen
+        screen.on_show(*args)
+        screen.pack(fill="both", expand=True)
+        if direction:
+            self.slide(direction)
+        else:
+            self.layout()
+
+    def slide(self, direction):
+        """Screens enter along the direction you travel: deeper from the right, back from the left."""
+        if self.reduced:
+            self.slide_dx = 0.0
+            self.layout()
+            return
+        self.slide_dx = float(self.px(28) * (1 if direction == "fwd" else -1))
+        if self.slide_job is None:
+            self.slide_step()
+
+    def slide_step(self):
+        # Ease out from wherever the card is now, with no overshoot.
+        old = self.slide_dx
+        self.slide_dx *= 0.72
+        if abs(self.slide_dx) < 0.5:
+            self.slide_dx, self.slide_job = 0.0, None
+        else:
+            self.slide_job = self.after(16, self.slide_step)
+        # Moving is much cheaper than a full layout, especially on Windows.
+        self.holder.move("card", self.slide_dx - old, 0)
+        self.holder.move(self.card_win, self.slide_dx - old, 0)
+
+    def on_wheel(self, event):
+        if self.current is not None and self.current.scroller is not None:
+            self.current.scroller.wheel(event)
 
 
 if __name__ == "__main__":

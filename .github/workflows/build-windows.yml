@@ -13,7 +13,7 @@ jobs:
           python-version: "3.11"
       - run: pip install pyinstaller
       - run: python -m unittest
-      - run: pyinstaller --onefile --windowed --name Glosor glosor_tk.py
+      - run: pyinstaller --onefile --windowed --name Noter noter_tk.py
       - name: Build installer
         shell: pwsh
         run: |
@@ -24,7 +24,7 @@ jobs:
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
       - uses: actions/upload-artifact@v4
         with:
-          name: Glosor-windows
+          name: Noter-windows
           path: |
-            dist/Glosor.exe
-            dist/GlosorSetup.exe
+            dist/Noter.exe
+            dist/NoterSetup.exe

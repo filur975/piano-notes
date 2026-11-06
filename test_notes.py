@@ -46,11 +46,11 @@ class NotesTests(unittest.TestCase):
     def test_session(self):
         items = notes.make_notes("treble", 0, "staff-key")
         s = notes.Session(items, "staff-key", 0, rng=random.Random(2))
-        note = s.current.word
+        note = s.current.note
         self.assertEqual(s.check(note["midi"] + 1), (False, True))
         self.assertEqual(s.mastered, 0)
         while s.current is not None:
-            s.check(s.current.word["midi"])
+            s.check(s.current.note["midi"])
         self.assertEqual((s.hits, s.missed), (len(items) - 1, [note]))
 
 
