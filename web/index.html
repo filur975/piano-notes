@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Noter</title>
+  <meta name="description" content="Läs noter och hitta rätt tangent på pianot.">
+  <meta name="theme-color" content="#f2f2f7" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
+  <meta name="color-scheme" content="light dark">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="Noter">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+  <link rel="stylesheet" href="style.css">
+  <script type="module" src="app.js"></script>
+</head>
+<body>
+  <main class="card">
+    <section id="home" class="screen" hidden>
+      <h1>Noter</h1>
+      <p class="muted sub">Läs noter och hitta rätt tangent på pianot.</p>
+
+      <h2 class="caption">Tonart</h2>
+      <div class="key-row">
+        <button class="icon" id="key-prev" aria-label="Föregående tonart">◀</button>
+        <div class="key-title" id="key-title" aria-live="polite"></div>
+        <button class="icon" id="key-next" aria-label="Nästa tonart">▶</button>
+      </div>
+      <svg class="staff" id="home-staff" aria-hidden="true"></svg>
+      <p class="muted center" id="key-help"></p>
+
+      <h2 class="caption">Notsystem</h2>
+      <div class="segmented" id="clef" role="radiogroup" aria-label="Notsystem">
+        <button data-value="treble" role="radio">Diskantklav</button>
+        <button data-value="bass" role="radio">Basklav</button>
+        <button data-value="both" role="radio">Båda</button>
+      </div>
+
+      <h2 class="caption">Vad vill du öva?</h2>
+      <div class="two">
+        <button class="accent" data-start="staff-key">Not → tangent</button>
+        <button class="accent" data-start="key-staff">Tangent → not</button>
+      </div>
+    </section>
+
+    <section id="quiz" class="screen" hidden>
+      <div class="progress"><div class="progress-fill" id="progress-fill"></div></div>
+      <div class="quiz-top">
+        <span class="small muted" id="progress-text"></span>
+        <button class="link" id="quit">Avsluta</button>
+      </div>
+      <p class="muted center" id="prompt"></p>
+      <svg class="staff" id="quiz-staff" role="img"></svg>
+      <div class="piano-scroll" id="piano-scroll">
+        <svg class="piano" id="piano" role="img"></svg>
+      </div>
+      <div class="feedback" id="feedback" aria-live="polite"></div>
+      <button class="tinted wide" id="reveal">Visa svar</button>
+      <button class="accent wide" id="next" hidden>Nästa →</button>
+    </section>
+
+    <section id="summary" class="screen" hidden>
+      <h1 class="center">Bra jobbat!</h1>
+      <div class="score" id="score"></div>
+      <p class="muted center">rätt på första försöket</p>
+      <ul class="results" id="results"></ul>
+      <div class="two" id="summary-buttons">
+        <button class="accent" id="retry">Öva på missade toner</button>
+        <button class="tinted" id="again">Öva igen</button>
+      </div>
+      <div class="back-row"><button class="tinted" id="home-btn">Tillbaka till start</button></div>
+    </section>
+  </main>
+</body>
+</html>

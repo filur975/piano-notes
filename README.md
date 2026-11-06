@@ -27,6 +27,26 @@ follows the classic beginner chart: G2–middle C in the bass clef and middle C�
 python3 -m unittest
 ```
 
+## Web app (PWA)
+
+`web/` has the same app for the browser, installable on phones, tablets and computers and
+usable offline. It is plain HTML, CSS and JavaScript with no build step; the music logic in
+`web/notes.js` is a port of `notes.py`. Keep the two in step when changing the rules.
+
+Run it locally (a service worker needs `http://localhost` or HTTPS, so opening the file directly won't work):
+
+```
+cd web && python3 -m http.server 8000
+```
+
+Then open http://localhost:8000. Tests for the JavaScript port: `cd web && node --test`.
+
+The workflow "Publish web app" publishes `web/` to GitHub Pages on every push to `master`
+that touches it. Turn it on once under the repository's Settings → Pages → Source: "GitHub Actions".
+The app is then at `https://<user>.github.io/<repo>/`. To install it: in Chrome/Edge use the
+install icon in the address bar; on iPhone/iPad open it in Safari → Share → "Lägg till på hemskärmen".
+An installed app updates itself in the background, and the new version shows the next time it is opened.
+
 ## Windows installer
 
 The GitHub Actions workflow "Build Windows app" (run it manually, or push a tag like `v1.0`)
